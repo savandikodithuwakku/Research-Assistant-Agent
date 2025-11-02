@@ -5,6 +5,8 @@ from typing import Annotated
 from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, START, END
 
+MODEL= "llama-3.1-8b-instant"
+
 load_dotenv()
 
 # Define state schema
@@ -26,7 +28,7 @@ def researcher_node(state: State) -> State:
         messages=[
             {"role": "user", "content": prompt}
         ],
-        model="llama3-8b-8192",
+        model=MODEL,
         temperature=0.4  # temperature controls the randomness
     )
     state["research"] = chat_completion.choices[0].message.content
@@ -40,7 +42,7 @@ def writer_node(state: State) -> State:
         messages=[
             {"role": "user", "content": prompt}
         ],
-        model="llama3-8b-8192",
+        model=MODEL,
         temperature=0.7
     )
 
@@ -54,7 +56,7 @@ def reviewer_node(state: State) -> State:
         messages=[
             {"role": "user", "content": prompt}
         ],
-        model="llama3-8b-8192",
+        model=MODEL,
         temperature=0.3
     )
 
